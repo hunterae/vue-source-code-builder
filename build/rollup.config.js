@@ -1,36 +1,40 @@
 // rollup.config.js
 import vue from 'rollup-plugin-vue'
 
-// import cjs from 'rollup-plugin-commonjs'
+import commonjs from 'rollup-plugin-commonjs'
 
 // For setting the NODE Env to production
 import replace from 'rollup-plugin-replace'
-
-// Mininimize generated UMD code for UNPKG
-import uglify from 'rollup-plugin-uglify-es'
 
 // Parsing of command line arguments - See https://devhints.io/minimist
 import minimist from 'minimist'
 
 // More efficient transpiling than Bable
 import buble from 'rollup-plugin-buble'
-// import babel from 'rollup-plugin-babel'
 
 // Ability to resolve imports that do not provide extensions
 import resolve from 'rollup-plugin-node-resolve'
+
+import { terser } from 'rollup-plugin-terser'
 
 const argv = minimist(process.argv.slice(2))
 
 const globals = {
   'vue-slot-hooks': 'VueSlotHooks',
-  'vue-inherit-slots': 'VueInheritSlots'
+  'vue-inherit-slots': 'VueInheritSlots',
+  'vue-prism-component': 'Prism',
+  'prettier/standalone': 'prettier',
+  'prettier/parser-html': 'htmlParser',
+  'prettier/parser-babylon': 'babylonParser',
+  'prettier/parser-postcss': 'styleParser',
+  'lodash/mergeWith': 'mergeWith'
 }
 
 const config = {
-  external: ['vue-slot-hooks', 'vue-inherit-slots'],
+  external: ['vue-slot-hooks', 'vue-inherit-slots', 'vue-prism-component', 'prismjs', 'prettier/standalone', 'prettier/parser-html', 'prettier/parser-babylon', 'prettier/parser-postcss', 'lodash/mergeWith'],
   input: 'src/plugin.js',
   output: {
-    name: 'VueTableFor',
+    name: 'VueSourceCodeBuilder',
     exports: 'named',
     globals: globals
   },
@@ -38,6 +42,9 @@ const config = {
     resolve({
       main: true,
       extensions: ['.js', '.vue']
+    }),
+    commonjs({
+      include: 'node_modules/**'
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('production')
@@ -49,21 +56,13 @@ const config = {
         isProduction: true
       }
     }),
-    // cjs(),
     buble({ objectAssign: 'Object.assign' })
-    // babel({ runtimeHelpers: true })
   ]
-  // external: ['lodash']
 }
 
 // Only minify browser (iife) version
 if (argv.format === 'iife') {
-  config.plugins.push(
-    uglify({
-      sourceMap: false,
-      ie8: false
-    })
-  )
+  config.plugins.push(terser())
 }
 
 export default config

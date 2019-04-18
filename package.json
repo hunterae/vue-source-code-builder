@@ -1,7 +1,7 @@
 {
   "name": "vue-source-code-builder",
   "description": "vue-source-code-builder is a utility for dynamically generating formatted source code for documentation purposes.",
-  "version": "0.1.6",
+  "version": "0.0.2",
   "author": {
     "name": "Andrew Hunter",
     "email": "hunterae@gmail.com"
@@ -67,9 +67,10 @@
     "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.1.0",
     "rollup-plugin-buble": "^0.19.6",
+    "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-replace": "^2.1.0",
-    "rollup-plugin-uglify-es": "0.0.1",
+    "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-vue": "^4.3.2",
     "sass-loader": "^7.1.0",
     "v-runtime-template": "1.5.2",
