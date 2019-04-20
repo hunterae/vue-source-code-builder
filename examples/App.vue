@@ -138,7 +138,7 @@
             >
               <html-tag tag="div">
                 <html-tag tag="h4"
-                  >Generates this Formatted Source Code</html-tag
+                  >Generates this Formatted Source Code:</html-tag
                 >
                 <html-tag tag="vue-sfc-source-code">
                   <html-tag-attribute
@@ -239,17 +239,18 @@
                           name="v-if"
                           value="htmlTagAttributesActive"
                           v-if="options.applyConditionToAttribute"
-                        />
-                      </html-tag>
-                      Output of Running Source Code
+                        /> </html-tag
+                      >Output of Running Source Code
                     </html-tag>
                   </html-tag>
                   <pre tag="pre" is="html-tag">
-                      <html-tag-attribute name="slot='script'" />
+                      <html-tag-attribute name="slot='script'"/>
           export default {
             data () {
               return {
-                <text-element v-if="options.classAttributeDynamic">
+                <text-element
+  v-if="options.classAttributeDynamic"
+>
                 cssClass: 'text-normal'
                 </text-element>
               }
@@ -257,7 +258,7 @@
           }
        </pre>
                   <pre tag="pre" is="html-tag">
-                    <html-tag-attribute name="slot='styles'" />
+                    <html-tag-attribute name="slot='styles'"/>
           <text-element v-if="options.classInlineStatic">
           .text-underlined {
             text-decoration: underline;
@@ -291,7 +292,9 @@
               <pre slot="script">
                 export default { 
                   methods: {
-                    <text-element v-if="options.runGeneratedCode">
+                    <text-element
+  v-if="options.runGeneratedCode"
+>
                     setRunnableCode(code) {
                       this.runnableCode = code
                     },
@@ -299,7 +302,9 @@
                   },
                   data () {
                     return {
-                      <text-element v-if="options.runGeneratedCode">
+                      <text-element
+  v-if="options.runGeneratedCode"
+>
                       runnableCode: null,
                       </text-element>
                       <text-element v-if="options.classInlineDynamic">
@@ -322,28 +327,12 @@
           </section>
         </div>
         <div class="col-lg-4">
-          <!-- <form
-            action="https://codepen.io/pen/define"
-            method="POST"
-            target="_blank"
-            align="right"
-            style="float:right"
-          >
-            <input type="hidden" name="data" :value="sourceCode" />
-            <button
-              type="submit"
-              class="btn btn-primary"
-              title="Open on Codepen"
-            >
-              View on Codepen
-              <img
-                src="http://s.cdpn.io/3/cp-arrow-right.svg"
-                width="40"
-                height="40"
-                class="codepen-mover-button"
-              />
-            </button>
-          </form> -->
+          <view-on-codepen-button
+            :js-code="jsCode"
+            :html-code="htmlSourceCode"
+            :css-dependencies="cssDependencies"
+            :js-dependencies="jsDependencies"
+          />
           <h3>Step 3: View the Result</h3>
           <hr />
           <section id="output">
@@ -351,7 +340,6 @@
               :template="htmlSourceCode"
               v-if="htmlSourceCode"
             />
-            <!-- <span v-html="runnableCode" /> -->
           </section>
         </div>
       </div>
@@ -375,10 +363,11 @@
 import Doc from '../README.md'
 import 'github-markdown-css'
 import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
-import CheckboxInput from './components/inputs/CheckboxInput'
-import SelectInput from './components/inputs/SelectInput'
-import Accordion from './components/Accordion'
-import AccordionSection from './components/AccordionSection'
+import CheckboxInput from '@/components/inputs/CheckboxInput'
+import SelectInput from '@/components/inputs/SelectInput'
+import Accordion from '@/components/Accordion'
+import AccordionSection from '@/components/AccordionSection'
+import ViewOnCodepenButton from '@/components/ViewOnCodepenButton'
 import VRuntimeTemplate from 'v-runtime-template'
 
 export default {
@@ -389,7 +378,8 @@ export default {
     SelectInput,
     Accordion,
     AccordionSection,
-    VRuntimeTemplate
+    VRuntimeTemplate,
+    ViewOnCodepenButton
   },
   data() {
     return {
@@ -412,6 +402,15 @@ export default {
         printWidth: 50,
         runGeneratedCode: true
       },
+      cssDependencies: [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+        'https://unpkg.com/prismjs@1.16.0/themes/prism-tomorrow.css'
+      ],
+      jsDependencies: [
+        'https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js',
+        'https://unpkg.com/v-runtime-template@1.5.2/dist/v-runtime-template.js',
+        'https://unpkg.com/vue-source-code-builder@0.0.16/dist/vue-source-code-builder.min.js'
+      ],
       skipTag: true,
       htmlTagAttributesActive: true,
       runnableCode: null,
@@ -425,26 +424,6 @@ export default {
     }
   },
   computed: {
-    sourceCode() {
-      if (!this.jsCode) return null
-
-      let js = `new Vue({\n\tel: "#app",\n\ttemplate: "${this.htmlSourceCode.replace(
-        /"/g,
-        "'"
-      )}", ${this.jsCode.slice(this.jsCode.indexOf('{') + 1)})`.replace(
-        'https://goo.gl/w71knn',
-        'https://raw.githubusercontent.com/hunterae/vue-table-for/master/examples/people.json'
-      )
-
-      return JSON.stringify({
-        html: '<div id="app"></div>',
-        js: js,
-        css_external:
-          'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css',
-        js_external:
-          'https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js;https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js;https://unpkg.com/vue-inherit-slots;https://unpkg.com/vue-slot-hooks@0.2.3/dist/vue-slot-hooks.umd.js;https://unpkg.com/vue-table-for@0.1.6/dist/vue-table-for.umd.js'
-      })
-    },
     tag() {
       return this.options.tag
     }

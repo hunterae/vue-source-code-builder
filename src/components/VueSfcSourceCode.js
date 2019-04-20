@@ -2,7 +2,10 @@ import prettier from 'prettier/standalone'
 import htmlParser from 'prettier/parser-html'
 import babylonParser from 'prettier/parser-babylon'
 import styleParser from 'prettier/parser-postcss'
+import 'prismjs'
 import Prism from 'vue-prism-component'
+
+const prettierPlugins = [htmlParser, babylonParser, styleParser]
 
 var getChildrenTextContent = function(children) {
   return children
@@ -41,18 +44,20 @@ export default {
 
     let { printWidth, semicolons, stylesFormat } = context.props
 
-    if (context.listeners && context.listeners['update:template']) {
-      context.listeners['update:template'](htmlSource)
-    }
-
     htmlSource = `<template> ${htmlSource} </template>`
     htmlSource = prettier.format(htmlSource, {
       jsxBracketSameLine: true,
       printWidth: printWidth,
       parser: 'vue',
-      plugins: [htmlParser]
+      plugins: prettierPlugins
     })
     htmlSource = htmlSource.replace(/<\/(.*)\s+>/gm, '</$1>')
+
+    if (context.listeners && context.listeners['update:template']) {
+      context.listeners['update:template'](
+        htmlSource.replace('<template>', '').replace('</template>', '')
+      )
+    }
 
     let jsSource = ''
     if (slots.script) {
@@ -65,7 +70,7 @@ export default {
       semi: semicolons,
       printWidth: printWidth,
       parser: 'babylon',
-      plugins: [babylonParser]
+      plugins: prettierPlugins
     })
     if (context.listeners && context.listeners['update:script']) {
       context.listeners['update:script'](jsSource)
@@ -78,7 +83,7 @@ export default {
     stylesSource = prettier.format(stylesSource, {
       printWidth: printWidth,
       parser: stylesFormat,
-      plugins: [styleParser]
+      plugins: prettierPlugins
     })
 
     let src =

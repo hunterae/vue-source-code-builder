@@ -30,8 +30,22 @@ const globals = {
   'lodash/mergeWith': 'mergeWith'
 }
 
+let externals = []
+
+if (argv.format !== 'iife') {
+  externals = externals.concat([
+    'prettier/standalone',
+    'prettier/parser-html',
+    'prettier/parser-babylon',
+    'prettier/parser-postcss',
+    'lodash/mergeWith',
+    'vue-prism-component',
+    'prismjs'
+  ])
+}
+
 const config = {
-  external: ['vue-slot-hooks', 'vue-inherit-slots', 'vue-prism-component', 'prismjs', 'prettier/standalone', 'prettier/parser-html', 'prettier/parser-babylon', 'prettier/parser-postcss', 'lodash/mergeWith'],
+  external: externals,
   input: 'src/plugin.js',
   output: {
     name: 'VueSourceCodeBuilder',

@@ -3,7 +3,6 @@ import App from './App.vue'
 import VueSourceCodeBuilder from '../src/plugin.js'
 import router from './router'
 // import ga from 'vue-ga'
-import 'prismjs'
 import 'prismjs/themes/prism-tomorrow.css'
 
 Vue.use(VueSourceCodeBuilder)
