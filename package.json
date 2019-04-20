@@ -1,7 +1,7 @@
 {
   "name": "vue-source-code-builder",
   "description": "vue-source-code-builder is a utility for dynamically generating formatted source code for documentation purposes.",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "author": {
     "name": "Andrew Hunter",
     "email": "hunterae@gmail.com"
