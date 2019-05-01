@@ -64,7 +64,7 @@
 <script>
 import 'prismjs'
 import Prism from 'vue-prism-component'
-import RenderWithSlotHooks from 'vue-slot-hooks'
+import { RenderWithSlotHooks } from 'vue-slot-hooks'
 
 // VuePrismComponent only uses the text of the first child element, so using a functional component to allow multiple
 //  child elements
