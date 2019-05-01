@@ -1,5 +1,7 @@
 import mergeWith from 'lodash/mergeWith'
 
+import TextNode from './TextNode'
+
 export default {
   functional: true,
   props: {
@@ -9,10 +11,11 @@ export default {
     skipTag: {
       type: Boolean,
       default: false
-    }
+    },
+    formatter: String
   },
   render(h, context) {
-    let { tag, skipTag } = context.props
+    let { tag, skipTag, formatter } = context.props
     let slots = context.slots().default
     let text = ''
     let mergeAttributes = (accumulator, currentValue) => {
@@ -32,12 +35,14 @@ export default {
     let allStyles = []
 
     let { attrs, style, staticClass, staticStyle } = context.data
-    if (attrs) allAttributes.push(attrs)
+    if (attrs) {
+      delete attrs.slot
+      allAttributes.push(attrs)
+    }
     if (staticClass) allAttributes.push({ class: staticClass })
     if (context.data.class) allAttributes.push({ class: context.data.class })
     if (staticStyle) allStyles.push(staticStyle)
     if (style) allStyles.push(style)
-
     if (slots) {
       allAttributes = allAttributes.concat(
         slots
@@ -69,15 +74,23 @@ export default {
         })
         .join(' ') || ''
 
+    if (attributes !== '') {
+      attributes = ` ${attributes}`
+    }
     let html
     if (skipTag) {
       html = text
     } else if (text === '') {
-      html = `<${tag} ${attributes} />`
+      html = `<${tag}${attributes} />`
     } else {
-      html = `<${tag} ${attributes}> ${text} </${tag}>`
+      html = `<${tag}${attributes}>
+${text}
+</${tag}>`
     }
 
-    return context._v(html)
+    return h(TextNode, {
+      props: { text: html, formatter: formatter },
+      on: context.listeners
+    })
   }
 }

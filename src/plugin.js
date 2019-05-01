@@ -1,22 +1,29 @@
-import HtmlTag from './components/HtmlTag'
-import HtmlTagAttribute from './components/HtmlTagAttribute'
-import TextElement from './components/TextElement'
+import ElementNode from './components/ElementNode'
+import ElementNodeAttribute from './components/ElementNodeAttribute'
+import TextNode from './components/TextNode'
 import VueSfcSourceCode from './components/VueSfcSourceCode'
+import ViewOnCodepenButton from './components/ViewOnCodepenButton'
 
 const VueSourceCodeBuilderPlugin = {
   // eslint-disable-next-line no-unused-vars
   install(Vue, options = {}) {
-    // TODO: allow options to be specified for global settings
-    Vue.component('HtmlTag', HtmlTag)
-    Vue.component('HtmlTagAttribute', HtmlTagAttribute)
-    Vue.component('TextElement', TextElement)
+    Vue.component('ElementNode', ElementNode)
+    Vue.component('ElementNodeAttribute', ElementNodeAttribute)
+    Vue.component('TextNode', TextNode)
     Vue.component('VueSfcSourceCode', VueSfcSourceCode)
+    Vue.component('ViewOnCodepenButton', ViewOnCodepenButton)
   }
 }
 
 export default VueSourceCodeBuilderPlugin
 
-export { HtmlTag, HtmlTagAttribute, TextElement, VueSfcSourceCode }
+export {
+  ElementNode,
+  ElementNodeAttribute,
+  TextNode,
+  VueSfcSourceCode,
+  ViewOnCodepenButton
+}
 
 // Automatic installation if Vue has been added to the global scope.
 if (typeof window !== 'undefined' && window.Vue) {

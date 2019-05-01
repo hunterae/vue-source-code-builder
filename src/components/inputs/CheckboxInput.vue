@@ -4,21 +4,39 @@
       <input
         v-bind="$attrs"
         type="checkbox"
-        :checked="value"
-        @change="$emit('input', $event.target.checked)"
+        :value="value"
+        v-model="selected"
       />
       {{ label }}
     </label>
-    <span class="help-block" v-if="help"> {{ help }} </span>
+    <span class="help-block" v-if="help">{{ help }}</span>
   </div>
 </template>
 
 <script>
 export default {
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
   inheritAttrs: false,
+  computed: {
+    selected: {
+      get() {
+        return this.checked
+      },
+      set(value) {
+        this.$emit('change', value)
+      }
+    }
+  },
   props: {
     value: {
-      type: Boolean,
+      default() {
+        return this.checked
+      }
+    },
+    checked: {
       required: true
     },
     label: {

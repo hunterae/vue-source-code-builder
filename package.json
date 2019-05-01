@@ -1,7 +1,7 @@
 {
   "name": "vue-source-code-builder",
   "description": "vue-source-code-builder is a utility for dynamically generating formatted source code for documentation purposes.",
-  "version": "0.0.20",
+  "version": "0.1.0",
   "author": {
     "name": "Andrew Hunter",
     "email": "hunterae@gmail.com"
@@ -98,6 +98,7 @@
     "prettier": "^1.15.3",
     "prismjs": "^1.15.0",
     "v-runtime-template": "1.5.2",
-    "vue-prism-component": "^1.1.1"
+    "vue-prism-component": "^1.1.1",
+    "vue-slot-hooks": "^0.3.0"
   }
 }

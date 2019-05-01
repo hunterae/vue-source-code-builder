@@ -20,6 +20,7 @@
 </template>
 
 <script>
+// Approach based on https://blog.codepen.io/documentation/api/prefill/
 export default {
   props: {
     jsCode: String,
@@ -41,14 +42,14 @@ export default {
   computed: {
     codepenData() {
       if (!this.jsCode) return null
-      let jsCode = this.jsCode.replace(
-        /export default \{([\s\S]*)\};?\s*$/gm,
-        '$1}'
+      let jsCodePieces = this.jsCode.match(
+        /(.*)export default \{([\s\S]*)\}(;?)\s*$/m
       )
-      let js = `Vue.component('v-runtime-template', VRuntimeTemplate)
-new Vue({
+      let exportedCode = jsCodePieces[2]
+      let { css } = this
+      let js = `${jsCodePieces[1]}new Vue({
   el: "#app",
-  template: "#source-template",${jsCode})`
+  template: "#source-template",${exportedCode}})${jsCodePieces[3]}`
 
       let html =
         `<div id="app"></div>
@@ -57,8 +58,9 @@ new Vue({
 </scrip` + 't>'
 
       return JSON.stringify({
-        html: html,
-        js: js,
+        html,
+        js,
+        css,
         css_external: this.cssDependencies.join(';'),
         js_external: this.jsDependencies.join(';')
       })

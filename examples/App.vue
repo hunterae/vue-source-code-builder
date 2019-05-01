@@ -49,12 +49,20 @@
             <accordion-section title="Creating an HTML Tag">
               <select-input
                 label="Applying the Html Tag"
-                :options="['h1', 'h2', 'h3', 'h4', 'h5', 'h6']"
+                :options="[
+                  'h1',
+                  'h2',
+                  'h3',
+                  'h4',
+                  'h5',
+                  'h6',
+                  'SomeComponentWithLargeFont'
+                ]"
                 v-model="options.tag"
-                help="Applied as the 'tag' prop for the html-tag component"
+                help="Applied as the 'tag' prop for the element-node component"
               />
               <checkbox-input
-                v-model="options.applyHtmlTagDynamically"
+                v-model="options.applyElementNodeDynamically"
                 label="Apply the tag dynamically"
               />
               <checkbox-input
@@ -73,19 +81,19 @@
               </p>
               <checkbox-input
                 v-model="options.classInlineStatic"
-                label="As an static attribute on the html-tag"
+                label="As an static attribute on the element-node"
               />
               <checkbox-input
                 v-model="options.classInlineDynamic"
-                label="As an dynamic attribute on the html-tag"
+                label="As an dynamic attribute on the element-node"
               />
               <checkbox-input
                 v-model="options.classAttributeStatic"
-                label="As a separate html-tag-attribute element with a static value"
+                label="As a separate element-node-attribute element with a static value"
               />
               <checkbox-input
                 v-model="options.classAttributeDynamic"
-                label="As a separate html-tag-attribute element with a dynamic value"
+                label="As a separate element-node-attribute element with a dynamic value"
               />
             </accordion-section>
             <accordion-section title="Apply CSS Styles">
@@ -94,28 +102,28 @@
               </p>
               <checkbox-input
                 v-model="options.styleInlineStatic"
-                label="As an static attribute on the html-tag"
+                label="As an static attribute on the element-node"
               />
               <checkbox-input
                 v-model="options.styleInlineDynamic"
-                label="As an dynamic attribute on the html-tag"
+                label="As an dynamic attribute on the element-node"
               />
               <checkbox-input
                 v-model="options.styleAttributeStatic"
-                label="As a separate html-tag-attribute element with a static value"
+                label="As a separate element-node-attribute element with a static value"
               />
               <checkbox-input
                 v-model="options.styleAttributeDynamic"
-                label="As a separate html-tag-attribute element with a dynamic value"
+                label="As a separate element-node-attribute element with a dynamic value"
               />
             </accordion-section>
             <accordion-section title="Apply Conditions">
               <checkbox-input
                 v-model="options.applyConditionToAttribute"
-                label="Apply a v-if condition to all html-tag-attribute elements"
+                label="Apply a v-if condition to all element-node-attribute elements"
               />
               <checkbox-input
-                v-model="htmlTagAttributesActive"
+                v-model="ElementNodeAttributesActive"
                 label="Condition True?"
                 v-if="options.applyConditionToAttribute"
               />
@@ -136,198 +144,192 @@
               :semicolons="options.useSemicolons"
               :print-width="options.printWidth"
             >
-              <html-tag tag="div">
-                <html-tag tag="h4"
-                  >Generates this Formatted Source Code:</html-tag
-                >
-                <html-tag tag="vue-sfc-source-code">
-                  <html-tag-attribute
+              <element-node tag="div">
+                <element-node tag="vue-sfc-source-code">
+                  <element-node-attribute
                     name="@update:template"
                     value="setRunnableCode"
                     v-if="options.runGeneratedCode"
                   />
-                  <html-tag-attribute
+                  <element-node-attribute
                     name="semicolons"
                     v-if="options.useSemicolons"
                   />
-                  <html-tag-attribute
+                  <element-node-attribute
                     name=":print-width"
                     :value="options.printWidth"
                   />
-                  <html-tag tag="html-tag">
-                    <html-tag-attribute name="tag" value="div" />
+                  <element-node tag="element-node">
+                    <element-node-attribute name="tag" value="div" />
 
-                    <html-tag tag="html-tag">
-                      <html-tag-attribute
+                    <element-node tag="element-node">
+                      <element-node-attribute
                         name=":tag"
                         value="tag"
-                        v-if="options.applyHtmlTagDynamically"
+                        v-if="options.applyElementNodeDynamically"
                       />
-                      <html-tag-attribute
+                      <element-node-attribute
                         name="tag"
                         :value="options.tag"
                         v-else
                       />
-                      <html-tag-attribute
+                      <element-node-attribute
                         name=":skip-tag"
                         value="skipTag"
                         v-if="options.skipTagConditional"
                       />
-                      <html-tag-attribute
+                      <element-node-attribute
                         name=":class"
                         value="dynamicInlineClass"
                         v-if="options.classInlineDynamic"
                       />
-                      <html-tag-attribute
+                      <element-node-attribute
                         name="class"
                         value="text-underlined"
                         v-if="options.classInlineStatic"
                       />
-                      <html-tag
-                        tag="html-tag-attribute"
+                      <element-node
+                        tag="element-node-attribute"
                         name=":class"
                         value="cssClass"
                         v-if="options.classAttributeDynamic"
                       >
-                        <html-tag-attribute
+                        <element-node-attribute
                           name="v-if"
-                          value="htmlTagAttributesActive"
+                          value="ElementNodeAttributesActive"
                           v-if="options.applyConditionToAttribute"
                         />
-                      </html-tag>
-                      <html-tag
-                        tag="html-tag-attribute"
+                      </element-node>
+                      <element-node
+                        tag="element-node-attribute"
                         name="class"
                         value="text-red"
                         v-if="options.classAttributeStatic"
                       >
-                        <html-tag-attribute
+                        <element-node-attribute
                           name="v-if"
-                          value="htmlTagAttributesActive"
+                          value="ElementNodeAttributesActive"
                           v-if="options.applyConditionToAttribute"
                         />
-                      </html-tag>
-                      <html-tag-attribute
+                      </element-node>
+                      <element-node-attribute
                         name=":style"
                         value="{ 'font-style': 'italic' }"
                         v-if="options.styleInlineDynamic"
                       />
-                      <html-tag-attribute
+                      <element-node-attribute
                         name="style"
                         value="background-color: green"
                         v-if="options.styleInlineStatic"
                       />
-                      <html-tag
-                        tag="html-tag-attribute"
+                      <element-node
+                        tag="element-node-attribute"
                         name=":style"
                         value="{ textAlign: 'center' }"
                         v-if="options.styleAttributeDynamic"
                       >
-                        <html-tag-attribute
+                        <element-node-attribute
                           name="v-if"
-                          value="htmlTagAttributesActive"
+                          value="ElementNodeAttributesActive"
                           v-if="options.applyConditionToAttribute"
                         />
-                      </html-tag>
-                      <html-tag
-                        tag="html-tag-attribute"
+                      </element-node>
+                      <element-node
+                        tag="element-node-attribute"
                         name="style"
                         value="text-transform: uppercase;"
                         v-if="options.styleAttributeStatic"
                       >
-                        <html-tag-attribute
+                        <element-node-attribute
                           name="v-if"
-                          value="htmlTagAttributesActive"
+                          value="ElementNodeAttributesActive"
                           v-if="options.applyConditionToAttribute"
-                        /> </html-tag
+                        /> </element-node
                       >Output of Running Source Code
-                    </html-tag>
-                  </html-tag>
-                  <pre tag="pre" is="html-tag">
-                      <html-tag-attribute name="slot='script'"/>
-          export default {
-            data () {
-              return {
-                <text-element
+                    </element-node>
+                  </element-node>
+                  <template slot="prepend_script_tag">
+                    <pre is="text-element">
+                      let SomeComponentWithLargeFont = {
+          functional: true,
+          render(h, context) {
+            return h('div',
+              { style: { fontSize: '50px' } },
+              context.slots().default)
+          }
+        }
+                    </pre>
+                  </template>
+                  <pre tag="pre" is="element-node">
+                    <element-node-attribute name="slot='script'"/>
+        <text-node v-if="options.tag === 'SomeComponentWithLargeFont'">
+        let SomeComponentWithLargeFont = {
+          functional: true,
+          render(h, context) {
+            return h('div',
+              { style: { fontSize: '50px' } },
+              context.slots().default)
+          }
+        }
+        </text-node>
+        export default {
+          <text-node v-if="options.tag === 'SomeComponentWithLargeFont'">
+          components: {
+            SomeComponentWithLargeFont
+          },
+          </text-node>
+          data () {
+            return {
+              <text-node
   v-if="options.classAttributeDynamic"
 >
-                cssClass: 'text-normal'
-                </text-element>
-              }
+              cssClass: 'text-normal'
+              </text-node>
             }
           }
-       </pre>
-                  <pre tag="pre" is="html-tag">
-                    <html-tag-attribute name="slot='styles'"/>
-          <text-element v-if="options.classInlineStatic">
+        }
+      </pre>
+                  <pre tag="pre" is="element-node">
+                    <element-node-attribute name="slot='style'"/>
+          <text-node v-if="options.classInlineStatic">
           .text-underlined {
             text-decoration: underline;
           }
-          </text-element>
-          <text-element v-if="options.classInlineDynamic">
+          </text-node>
+          <text-node v-if="options.classInlineDynamic">
           .text-cursive {
             font-family: cursive;
           }
-          </text-element>
-          <text-element v-if="options.classAttributeDynamic">
+          </text-node>
+          <text-node v-if="options.classAttributeDynamic">
           .text-normal {
             font-weight: 100;
           }
-          </text-element>
-          <text-element v-if="options.classAttributeStatic">
+          </text-node>
+          <text-node v-if="options.classAttributeStatic">
           .text-red {
             color: red;
           }
-          </text-element>
+          </text-node>
        </pre>
-                </html-tag>
-                <html-tag
+                </element-node>
+                <element-node
                   tag="v-runtime-template"
                   v-if="options.runGeneratedCode"
                 >
-                  <html-tag-attribute name=":template" value="runnableCode" />
-                  <html-tag-attribute name="v-if" value="runnableCode" />
-                </html-tag>
-              </html-tag>
-              <pre slot="script">
-                export default { 
-                  methods: {
-                    <text-element
-  v-if="options.runGeneratedCode"
->
-                    setRunnableCode(code) {
-                      this.runnableCode = code
-                    },
-                    </text-element>
-                  },
-                  data () {
-                    return {
-                      <text-element
-  v-if="options.runGeneratedCode"
->
-                      runnableCode: null,
-                      </text-element>
-                      <text-element v-if="options.classInlineDynamic">
-                      dynamicInlineClass: 'text-cursive',
-                      </text-element>
-                      <text-element v-if="options.applyHtmlTagDynamically">
-                      tag: '{{ options.tag }}',
-                      </text-element>
-                      <text-element v-if="options.skipTagConditional">
-                      skipTag: {{ skipTag }},
-                      </text-element>
-                      <text-element v-if="options.applyConditionToAttribute">
-                      htmlTagAttributesActive: {{ htmlTagAttributesActive }},
-                      </text-element>
-                    }
-                  }
-                }
-              </pre>
+                  <element-node-attribute
+                    name=":template"
+                    value="runnableCode"
+                  />
+                  <element-node-attribute name="v-if" value="runnableCode" />
+                </element-node>
+              </element-node>
             </vue-sfc-source-code>
           </section>
         </div>
         <div class="col-lg-4">
           <view-on-codepen-button
+            class="hidden-xs"
             :js-code="jsCode"
             :html-code="htmlSourceCode"
             :css-dependencies="cssDependencies"
@@ -335,6 +337,7 @@
           />
           <h3>Step 3: View the Result</h3>
           <hr />
+          <h4>Generates this Formatted Source Code</h4>
           <section id="output">
             <v-runtime-template
               :template="htmlSourceCode"
@@ -370,6 +373,17 @@ import AccordionSection from '@/components/AccordionSection'
 import ViewOnCodepenButton from '@/components/ViewOnCodepenButton'
 import VRuntimeTemplate from 'v-runtime-template'
 
+let SomeComponentWithLargeFont = {
+  functional: true,
+  render(h, context) {
+    return h(
+      'div',
+      { ...context.data, style: { fontSize: '50px' } },
+      context.slots().default
+    )
+  }
+}
+
 export default {
   name: 'app',
   components: {
@@ -379,12 +393,14 @@ export default {
     Accordion,
     AccordionSection,
     VRuntimeTemplate,
-    ViewOnCodepenButton
+    ViewOnCodepenButton,
+    SomeComponentWithLargeFont
   },
   data() {
     return {
       htmlSourceCode: null,
       jsCode: null,
+      someComponent: SomeComponentWithLargeFont,
       options: {
         tag: 'h2',
         classInlineStatic: false,
@@ -396,7 +412,7 @@ export default {
         styleAttributeDynamic: false,
         styleAttributeStatic: false,
         applyConditionToAttribute: false,
-        applyHtmlTagDynamically: false,
+        applyElementNodeDynamically: false,
         skipTagConditional: false,
         useSemicolons: false,
         printWidth: 50,
@@ -408,11 +424,10 @@ export default {
       ],
       jsDependencies: [
         'https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js',
-        'https://unpkg.com/v-runtime-template@1.5.2/dist/v-runtime-template.js',
-        'https://unpkg.com/vue-source-code-builder@0.0.16/dist/vue-source-code-builder.min.js'
+        'https://unpkg.com/vue-source-code-builder'
       ],
       skipTag: true,
-      htmlTagAttributesActive: true,
+      ElementNodeAttributesActive: true,
       runnableCode: null,
       cssClass: 'text-normal',
       dynamicInlineClass: 'text-cursive'

@@ -7,12 +7,13 @@ export default {
     },
     value: {}
   },
-  render(h, { props, _v }) {
+  render(h, { props }) {
     let { name, value } = props
-    // if (typeof value !== 'undefined') {
-    //   name = `${name}="${value}"`
-    // }
-    // return _v(`ATTRIBUTE:${name}`)
+    if (name === 'slot') {
+      name = `slot='${value}'`
+      value = undefined
+    }
+
     return h('ATTRIBUTE', { attrs: { [name]: value } })
   }
 }

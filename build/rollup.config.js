@@ -27,10 +27,13 @@ const globals = {
   'prettier/parser-html': 'htmlParser',
   'prettier/parser-babylon': 'babylonParser',
   'prettier/parser-postcss': 'styleParser',
-  'lodash/mergeWith': 'mergeWith'
+  'lodash/mergeWith': 'mergeWith',
+  'lodash/omit': 'omit',
+  vue: 'Vue'
 }
 
-let externals = []
+let externals = ['vue']
+let input
 
 if (argv.format !== 'iife') {
   externals = externals.concat([
@@ -39,14 +42,20 @@ if (argv.format !== 'iife') {
     'prettier/parser-babylon',
     'prettier/parser-postcss',
     'lodash/mergeWith',
+    'lodash/omit',
     'vue-prism-component',
-    'prismjs'
+    'prismjs',
+    'vue-slot-hooks',
+    'vue-inherit-slots'
   ])
+  input = 'src/plugin.js'
+} else {
+  input = 'src/browser-plugin.js'
 }
 
 const config = {
   external: externals,
-  input: 'src/plugin.js',
+  input: input,
   output: {
     name: 'VueSourceCodeBuilder',
     exports: 'named',

@@ -1747,6 +1747,7 @@ cli-width@^2.0.0:
 clipboard@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.4.tgz#836dafd66cf0fea5d71ce5d5b0bf6e958009112d"
+  integrity sha512-Vw26VSLRpJfBofiVaFb/I8PVfdI1OxKcYShe6fm0sP/DtmiWQNCjhM/okTvdCo0G+lMMm1rMYbk4IK4x1X+kgQ==
   dependencies:
     good-listener "^1.2.2"
     select "^1.1.2"
@@ -2381,6 +2382,7 @@ delayed-stream@~1.0.0:
 delegate@^3.1.2:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/delegate/-/delegate-3.2.0.tgz#b66b71c3158522e8ab5744f720d8ca0c2af59166"
+  integrity sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==
 
 delegates@^1.0.0:
   version "1.0.0"
@@ -3506,6 +3508,7 @@ globule@^1.0.0:
 good-listener@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/good-listener/-/good-listener-1.2.2.tgz#d53b30cdf9313dffb7dc9a0d477096aa6d145c50"
+  integrity sha1-1TswzfkxPf+33JoNR3CWqm0UXFA=
   dependencies:
     delegate "^3.1.2"
 
@@ -5902,8 +5905,9 @@ pretty-error@^2.0.2:
     utila "~0.4"
 
 prismjs@^1.15.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.15.0.tgz#8801d332e472091ba8def94976c8877ad60398d9"
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.16.0.tgz#406eb2c8aacb0f5f0f1167930cb83835d10a4308"
+  integrity sha512-OA4MKxjFZHSvZcisLGe14THYsug/nF6O1f0pAJc0KN0wTyAcLqmsbE+lTGKSpyh+9pEW57+k6pg2AfYR+coyHA==
   optionalDependencies:
     clipboard "^2.0.0"
 
@@ -6549,6 +6553,7 @@ select-hose@^2.0.0:
 select@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
+  integrity sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=
 
 selfsigned@^1.9.1:
   version "1.10.4"
@@ -7225,8 +7230,9 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
 
 tiny-emitter@^2.0.0:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.0.2.tgz#82d27468aca5ade8e5fd1e6d22b57dd43ebdfb7c"
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
+  integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
 
 tmp@^0.0.33:
   version "0.0.33"
@@ -7577,10 +7583,10 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
 
-vue-inherit-slots@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/vue-inherit-slots/-/vue-inherit-slots-0.1.1.tgz#f1e42fa880071c1d7ca2795964a6dae6255a82ff"
-  integrity sha512-WXpU3+vTFm6kV/1MJ/6wQaboIYO0M3wfXN4Q+fiGPbk25WWyud9y5TQdlgZX0Xc13TZ0oFOtmyRJVPHbjeabWw==
+vue-inherit-slots@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/vue-inherit-slots/-/vue-inherit-slots-0.2.0.tgz#ad10b51bda4d1f33bf7ad789cf55a2611b2c585c"
+  integrity sha512-6XkhmFvZHCf8J/FMmFt4XwF561ecg86bLj/qfYd74gHKFdvll/Vm6fGgwa30dkNoVqCd+niaplpmU8pmhnYEOA==
 
 vue-loader@^15.4.2:
   version "15.4.2"
@@ -7610,12 +7616,12 @@ vue-router@^3.0.2:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
   integrity sha512-opKtsxjp9eOcFWdp6xLQPLmRGgfM932Tl56U9chYTnoWqKxQ8M20N7AkdEbM5beUh6wICoFGYugAX9vQjyJLFg==
 
-vue-slot-hooks@^0.2.2:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/vue-slot-hooks/-/vue-slot-hooks-0.2.3.tgz#4a9c26666a4eabb4c94703609b9dec4f878b0c60"
-  integrity sha512-FYQO0cYwmEvQaCj6JBgy8A7bIsTeJSMAVPGAwWODxfhmWCm1nprTDv4iwAPm1/WN/X2mQCCHSpz+MYuZ0b9ijw==
+vue-slot-hooks@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/vue-slot-hooks/-/vue-slot-hooks-0.3.0.tgz#c2c3ef50e4cdc7a04a668799142874666f3979bd"
+  integrity sha512-bksBlU8lsrJ1BsNpHlTNn3Wviy12qyAevqNogkHlvA20t2V1CmYiTUg23BaBTPiRB09Fcfd7LoG8KUcA5VVdKg==
   dependencies:
-    vue-inherit-slots "^0.1.1"
+    vue-inherit-slots "^0.2.0"
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
