@@ -1,9 +1,9 @@
 <template>
   <prism language="html">
     <prism-root-element>
-      <element-node tag="template" formatter="vue">
-        <text-node formatter="vue" @update="$emit('update:template', $event)">
-          <slot />
+      <element-node tag="template" formatter="vue" @update="updateTemplate">
+        <text-node>
+          <slot/>
         </text-node>
       </element-node>
       <text-node :text="'\n\n'"></text-node>
@@ -12,7 +12,6 @@
           is="render-with-slot-hooks"
           tag="text-node"
           slot-name="script"
-          inner-slot-hooks-only
           :tag-data="{
             props: { formatter: 'babylon' },
             on: {
@@ -81,6 +80,14 @@ export default {
     Prism,
     RenderWithSlotHooks,
     PrismRootElement
+  },
+  methods: {
+    updateTemplate(event) {
+      this.$emit(
+        'update:template',
+        event.replace(/^\s*<template>([\s\S]+)<\/template>\s*$/g, '$1')
+      )
+    }
   }
 }
 </script>

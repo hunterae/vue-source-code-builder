@@ -35,7 +35,7 @@ export default {
     formatterOptions = {
       ...{
         jsxBracketSameLine: true,
-        printWidth: 50,
+        printWidth: 40,
         parser: formatter,
         plugins: prettierPlugins,
         semi: false
