@@ -320,7 +320,11 @@
                 <object-entry-text-node
                   name="setRunnableCode"
                   :value="functions.setRunnableCode"
-                ></object-entry-text-node>
+                />
+                <object-entry-text-node
+                  name="setStyleCode"
+                  :value="functions.setStyleCode"
+                />
               </template>
               <template slot="append_data_content">
                 <object-entry-text-node
@@ -328,6 +332,7 @@
                   value="null"
                   v-if="runGeneratedCode"
                 />
+                <object-entry-text-node name="styleCode" value="null" />
                 <object-entry-text-node
                   name="dynamicInlineClass"
                   value="text-cursive"
@@ -413,7 +418,11 @@ import Accordion from '@/components/Accordion'
 import AccordionSection from '@/components/AccordionSection'
 import ViewOnCodepenButton from '@/components/ViewOnCodepenButton'
 import VRuntimeTemplate from 'v-runtime-template'
-import { setRunnableCode, formatterOptions } from './SharedFunctions.js'
+import {
+  setRunnableCode,
+  formatterOptions,
+  setStyleCode
+} from './SharedFunctions.js'
 
 let stringifyFunction = f => {
   return f.toString().replace(/^\s*function[^(]+/, 'function')
@@ -450,6 +459,7 @@ export default {
       // someComponent: SomeComponentWithLargeFont,
       functions: {
         setRunnableCode: stringifyFunction(setRunnableCode, 'setRunnableCode'),
+        setStyleCode: stringifyFunction(setStyleCode, 'setStyleCode'),
         formatterOptions: stringifyFunction(
           formatterOptions,
           'formatterOptions'
@@ -476,7 +486,7 @@ export default {
       ],
       jsDependencies: [
         'https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js',
-        'https://unpkg.com/vue-source-code-builder'
+        'https://unpkg.com/vue-source-code-builder@0.1.3'
       ],
       skipTag: true,
       elementNodeAttributesActive: true,
@@ -487,9 +497,7 @@ export default {
   },
   methods: {
     setRunnableCode,
-    setStyleCode(styleCode) {
-      this.styleCode = styleCode
-    }
+    setStyleCode
   },
   computed: {
     formatterOptions
