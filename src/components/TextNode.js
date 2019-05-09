@@ -19,6 +19,10 @@ export default {
       default() {
         return {}
       }
+    },
+    trim: {
+      type: Boolean,
+      default: false
     }
   },
   render(h, context) {
@@ -31,7 +35,7 @@ export default {
         })
         .join('')
     }
-    let { text, formatter, formatterOptions, curlyBraces } = context.props
+    let { text, formatter, formatterOptions, curlyBraces, trim } = context.props
     formatterOptions = {
       ...{
         jsxBracketSameLine: true,
@@ -61,6 +65,10 @@ export default {
 
     if (context.listeners && context.listeners['update']) {
       context.listeners['update'](text)
+    }
+
+    if (trim) {
+      text = text.replace(/^\s*/, '').replace(/\s*$/g, '')
     }
 
     return context._v(text)

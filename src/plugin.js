@@ -1,6 +1,9 @@
 import ElementNode from './components/ElementNode'
 import ElementNodeAttribute from './components/ElementNodeAttribute'
 import TextNode from './components/TextNode'
+import ObjectTextNode from './components/ObjectTextNode'
+import ObjectEntryTextNode from './components/ObjectEntryTextNode'
+import CssRuleTextNode from './components/CssRuleTextNode'
 import VueSfcSourceCode from './components/VueSfcSourceCode'
 import ViewOnCodepenButton from './components/ViewOnCodepenButton'
 
@@ -10,8 +13,11 @@ const VueSourceCodeBuilderPlugin = {
     Vue.component('ElementNode', ElementNode)
     Vue.component('ElementNodeAttribute', ElementNodeAttribute)
     Vue.component('TextNode', TextNode)
+    Vue.component('ObjectTextNode', ObjectTextNode)
+    Vue.component('ObjectEntryTextNode', ObjectEntryTextNode)
     Vue.component('VueSfcSourceCode', VueSfcSourceCode)
     Vue.component('ViewOnCodepenButton', ViewOnCodepenButton)
+    Vue.component('CssRuleTextNode', CssRuleTextNode)
   }
 }
 

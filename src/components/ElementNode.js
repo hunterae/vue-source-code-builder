@@ -8,14 +8,37 @@ export default {
     tag: {
       required: true
     },
+    tagAttrs: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
     skipTag: {
       type: Boolean,
       default: false
     },
-    formatter: String
+    selfClosable: {
+      type: Boolean,
+      default: true
+    },
+    skipIfEmpty: {
+      type: Boolean,
+      default: false
+    },
+    formatter: TextNode.props.formatter,
+    formatterOptions: TextNode.props.formatterOptions
   },
   render(h, context) {
-    let { tag, skipTag, formatter } = context.props
+    let {
+      tag,
+      tagAttrs,
+      skipTag,
+      formatter,
+      formatterOptions,
+      selfClosable,
+      skipIfEmpty
+    } = context.props
     let slots = context.slots().default
     let text = ''
     let mergeAttributes = (accumulator, currentValue) => {
@@ -31,7 +54,7 @@ export default {
         }
       })
     }
-    let allAttributes = []
+    let allAttributes = [tagAttrs]
     let allStyles = []
 
     let { attrs, style, staticClass, staticStyle } = context.data
@@ -80,16 +103,18 @@ export default {
     let html
     if (skipTag) {
       html = text
-    } else if (text === '') {
-      html = `<${tag}${attributes} />`
+    } else if (text === '' && skipIfEmpty) {
+      return null
+    } else if (text === '' && selfClosable) {
+      html = `<${tag}${attributes} />\n`
     } else {
       html = `<${tag}${attributes}>
 ${text}
-</${tag}>`
+</${tag}>\n`
     }
 
     return h(TextNode, {
-      props: { text: html, formatter: formatter },
+      props: { text: html, formatter, formatterOptions },
       on: context.listeners
     })
   }

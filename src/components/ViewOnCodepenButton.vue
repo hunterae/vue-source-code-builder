@@ -6,7 +6,7 @@
     align="right"
     style="float:right"
   >
-    <input type="hidden" name="data" :value="codepenData">
+    <input type="hidden" name="data" :value="codepenData" />
     <button type="submit" class="btn btn-primary" title="Open on Codepen">
       View on Codepen
       <img
@@ -14,7 +14,7 @@
         width="40"
         height="40"
         class="codepen-mover-button"
-      >
+      />
     </button>
   </form>
 </template>
@@ -46,7 +46,7 @@ export default {
         /([\s\S]*)export default \{([\s\S]*)\}(;?)\s*$/m
       )
       let exportedCode = jsCodePieces[2]
-      let { css } = this
+      let css = this.cssCode
       let js = `${jsCodePieces[1]}new Vue({
   el: "#app",
   template: "#source-template",${exportedCode}})${jsCodePieces[3]}`

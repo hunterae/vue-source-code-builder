@@ -1,19 +1,21 @@
 <template>
   <prism language="html">
-    <prism-root-element>
-      <element-node tag="template" formatter="vue" @update="updateTemplate">
-        <text-node>
-          <slot/>
-        </text-node>
+    <text-node trim>
+      <element-node
+        tag="template"
+        formatter="vue"
+        :formatter-options="formatterOptions"
+        @update="updateTemplate"
+      >
+        <text-node> <slot /> </text-node>
       </element-node>
       <text-node :text="'\n\n'"></text-node>
-      <element-node tag="script">
-        <pre
-          is="render-with-slot-hooks"
+      <element-node tag="script" :self-closable="false">
+        <render-with-slot-hooks
           tag="text-node"
           slot-name="script"
           :tag-data="{
-            props: { formatter: 'babylon' },
+            props: { formatter: 'babylon', formatterOptions },
             on: {
               update(event) {
                 $emit('update:script', event)
@@ -21,33 +23,41 @@
             }
           }"
         >
-          export default {
-          <render-with-slot-hooks slot-name="exports">
-            data() {
-              return {
-                <render-with-slot-hooks slot-name="data"/>
-              }
-            },
-            <render-with-slot-hooks slot-name="methods">
-              <text-node slot="around_methods_content" slot-scope="content">
-                methods: {
-                  <component :is="content"/>
-                },
-              </text-node> 
+          <render-with-slot-hooks
+            slot-name="exports"
+            tag="object-text-node"
+            :tag-data="{ props: { prefix: 'export default' } }"
+          >
+            <render-with-slot-hooks
+              slot-name="data"
+              tag="object-entry-text-node"
+              :tag-data="{ props: { name: 'data()', value: {} } }"
+            >
+              <object-text-node
+                prefix="return"
+                suffix=";"
+                slot="around_data_content"
+                slot-scope="content"
+              >
+                <component :is="content" />
+              </object-text-node>
             </render-with-slot-hooks>
+            <render-with-slot-hooks
+              slot-name="methods"
+              tag="object-entry-text-node"
+              :tag-data="{ props: { name: 'methods', value: {} } }"
+            />
           </render-with-slot-hooks>
-          }
-        </pre>
+        </render-with-slot-hooks>
       </element-node>
-      <text-node :text="'\n\n'" v-if="$slots.style"></text-node>
-      <element-node tag="style" v-if="$slots.style">
-        <pre
-          is="render-with-slot-hooks"
+      <text-node :text="'\n'"></text-node>
+      <element-node tag="style" :self-closable="false" :skip-if-empty="true">
+        <render-with-slot-hooks
           tag="text-node"
           slot-name="style"
           inner-slot-hooks-only
           :tag-data="{
-            props: { formatter: 'css' },
+            props: { formatter: 'css', formatterOptions },
             on: {
               update(event) {
                 $emit('update:styles', event)
@@ -56,7 +66,7 @@
           }"
         />
       </element-node>
-    </prism-root-element>
+    </text-node>
   </prism>
 </template>
 
@@ -65,21 +75,18 @@ import 'prismjs'
 import Prism from 'vue-prism-component'
 import { RenderWithSlotHooks } from 'vue-slot-hooks'
 
-// VuePrismComponent only uses the text of the first child element, so using a functional component to allow multiple
-//  child elements
-// TODO: Pull Request to https://github.com/egoist/vue-prism-component to use text from all children
-let PrismRootElement = {
-  functional: true,
-  render(h, context) {
-    return context.slots().default
-  }
-}
-
 export default {
   components: {
     Prism,
-    RenderWithSlotHooks,
-    PrismRootElement
+    RenderWithSlotHooks
+  },
+  props: {
+    formatterOptions: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
   },
   methods: {
     updateTemplate(event) {
