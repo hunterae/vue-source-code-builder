@@ -34,7 +34,17 @@ export default {
       text = `${text}:`
     }
 
-    if (typeof value === 'object' && value !== null) {
+    if (Array.isArray(value)) {
+      return [
+        h(TextNode, {
+          props: { text: `${text} [` }
+        }),
+        context.slots().default,
+        h(TextNode, {
+          props: { text: `]${suffix}` }
+        })
+      ]
+    } else if (typeof value === 'object' && value !== null) {
       return [
         h(TextNode, {
           props: { text }
